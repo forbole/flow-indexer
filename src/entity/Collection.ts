@@ -12,4 +12,6 @@ export class Collection extends BaseEntity{
     @Column({type: "boolean", default:false})
     processed: boolean
     
+    @Column()
+    height: number
 }

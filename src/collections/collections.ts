@@ -2,7 +2,7 @@ import { AccessAPI, GetCollectionByIDRequest, CollectionResponse } from "@onflow
 import { unary } from "../utils/unary"
 import { Collection } from "../entity/Collection"
 
-export const GetCollection = async (collectionId:string):Promise<void> => {
+export const GetCollection = async (collectionId:string, height):Promise<void> => {
     try{
         const req = new GetCollectionByIDRequest()
         req.setId(collectionId)
@@ -11,6 +11,7 @@ export const GetCollection = async (collectionId:string):Promise<void> => {
         const collection = new Collection()
         collection.id = res.collection.id
         collection.transactionIds = res.collection.transactionIdsList
+        collection.height = height
         try {
             console.log("Saving Collection with ID: %o", collectionId)
             await Collection.save(collection)

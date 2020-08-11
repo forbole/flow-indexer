@@ -84,7 +84,7 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
             if (block.collectionGuarantees.length > 0){
                 // index transactions
                 block.collectionGuarantees.forEach(async collectionGuarantee => {
-                    await GetCollection(collectionGuarantee.collectionId)
+                    await GetCollection(collectionGuarantee.collectionId, height)
                 })
             }
 
