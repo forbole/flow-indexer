@@ -4,6 +4,8 @@ import { unary } from "../utils/unary"
 import { blockTime } from "../utils/timestamp"
 import { Block } from "../entity/Block";
 import { ChainState } from "../entity/ChainState"
+import { GetCollection } from "../collections/collections"
+
 
 export const UpdateBlocks = async (targetHeight:number, chainId: string, genesisHeight: number):Promise<number> => {
     
@@ -69,7 +71,8 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
                     ChainState.save(chain)
 
                     // if there is collection guarantee, there are transactions in this block
-                    // index the transactions
+                    // save the collection
+
 
                 }
                 catch(e){
@@ -80,7 +83,9 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
 
             if (block.collectionGuarantees.length > 0){
                 // index transactions
-                console.log(block.collectionGuarantees)
+                block.collectionGuarantees.forEach(async collectionGuarantee => {
+                    await GetCollection(collectionGuarantee.collectionId)
+                })
             }
 
             // and save it

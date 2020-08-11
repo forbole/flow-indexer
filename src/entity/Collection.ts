@@ -7,6 +7,9 @@ export class Collection extends BaseEntity{
     id: string;
 
     @Column("json")
-    transaction_ids: string[];
+    transactionIds: string[];
+
+    @Column({type: "boolean", default:false})
+    processed: boolean
     
 }

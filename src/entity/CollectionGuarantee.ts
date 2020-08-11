@@ -1,4 +1,4 @@
 export class CollectionGuarantee{
-    collection_id: string
+    collectionId: string
     signatures: string[]
 }

@@ -8,7 +8,7 @@ import { UpdateBlocks } from "./blocks/blocks"
 
 const getLatestHeight = async ():Promise<number> => {
     const req = new GetLatestBlockHeaderRequest()
-    const res:BlockHeaderResponse = await unary(process.env.ACCESS_NODE, AccessAPI.GetLatestBlockHeader, req)
+    const res:BlockHeaderResponse = await unary(AccessAPI.GetLatestBlockHeader, req)
     // console.log(res)
     let latestHeight = -1 // return -1 if error
 
@@ -65,3 +65,4 @@ const main = async() => {
 let timer:NodeJS.Timer
 
 main()
+
