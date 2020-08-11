@@ -1,13 +1,14 @@
+import "./env"
 import {grpc} from "@improbable-eng/grpc-web"
 import {NodeHttpTransport} from "@improbable-eng/grpc-web-node-http-transport"
 
 grpc.setDefaultTransport(NodeHttpTransport())
 
-export async function unary(host, method, request) {
+export async function unary(method, request) {
   return new Promise((resolve, reject) => {
     grpc.unary(method, {
       request: request,
-      host: host,
+      host: process.env.ACCESS_NODE,
       onEnd: ({status, statusMessage, message}) => {
         if (status === grpc.Code.OK) {
           resolve(message.toObject())

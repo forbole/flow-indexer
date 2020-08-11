@@ -1,12 +1,11 @@
 import "reflect-metadata";
-// import { getConnection } from "typeorm";
 import { AccessAPI, GetBlockByHeightRequest, BlockResponse } from "@onflow/protobuf"
 import { unary } from "../utils/unary"
 import { blockTime } from "../utils/timestamp"
 import { Block } from "../entity/Block";
 import { ChainState } from "../entity/ChainState"
 
-export const UpdateBlocks = async (targetHeight:number, host:string, chainId: string, genesisHeight: number):Promise<number> => {
+export const UpdateBlocks = async (targetHeight:number, chainId: string, genesisHeight: number):Promise<number> => {
     
     // get largest height in the database
     // if empty, start form genesis height
@@ -42,7 +41,7 @@ export const UpdateBlocks = async (targetHeight:number, host:string, chainId: st
             const req = new GetBlockByHeightRequest()
             req.setHeight(height)
             console.log("Get block height: %o", height)
-            const res:BlockResponse = await unary(host, AccessAPI.GetBlockByHeight, req)
+            const res:BlockResponse = await unary(AccessAPI.GetBlockByHeight, req)
             const block = new Block()
             block.id = res.block.id
             block.parentId = res.block.parentId
@@ -77,6 +76,11 @@ export const UpdateBlocks = async (targetHeight:number, host:string, chainId: st
                     console.log("Get previous block at height %o error: %", height-1, e)
                     return height
                 }
+            }
+
+            if (block.collectionGuarantees.length > 0){
+                // index transactions
+                console.log(block.collectionGuarantees)
             }
 
             // and save it

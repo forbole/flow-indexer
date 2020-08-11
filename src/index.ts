@@ -41,7 +41,7 @@ const startIndex = () => {
     getLatestHeight().then(height => {
         console.log("Latest height: %o", height)
     
-        UpdateBlocks(height, process.env.ACCESS_NODE, process.env.CHAIN_ID, parseInt(process.env.GENESIS_HEIGHT)).then(number => {
+        UpdateBlocks(height, process.env.CHAIN_ID, parseInt(process.env.GENESIS_HEIGHT)).then(number => {
             console.log("Finsihed indexing block to height %o.", number) 
             timer = global.setInterval(startIndex, 3000)
         })
