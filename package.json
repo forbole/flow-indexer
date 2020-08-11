@@ -1,0 +1,28 @@
+{
+   "name": "server",
+   "version": "0.1.0",
+   "description": "Big Dipper for Flow - Server",
+   "author": "Forbole",
+   "license": "MIT",
+   "devDependencies": {
+      "@types/node": "^8.0.29",
+      "ts-node": "^8.10.2",
+      "ts-node-dev": "^1.0.0-pre.56",
+      "typescript": "^3.9.7"
+   },
+   "dependencies": {
+      "@improbable-eng/grpc-web-node-http-transport": "^0.13.0",
+      "@onflow/protobuf": "^0.1.6",
+      "@onflow/response": "^0.0.2",
+      "dotenv": "^8.2.0",
+      "pg": "^8.3.0",
+      "reflect-metadata": "^0.1.10",
+      "typeorm": "0.2.25"
+   },
+   "scripts": {
+      "dev": "ts-node src/index.ts",
+      "dev:watch": "ts-node-dev --respawn --transpile-only src/",
+      "build": "tsc",
+      "start": "node build/index.js"
+   }
+}
