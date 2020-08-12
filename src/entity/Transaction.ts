@@ -5,7 +5,7 @@ import { TransactionSignature } from "./TransactionSignature"
 @Entity()
 export class Transaction extends BaseEntity {
     @PrimaryColumn()
-    hash: string
+    id: string
 
     @Column('text')
     script: string
