@@ -59,7 +59,7 @@ const startIndex = () => {
 
 const indexTransactions = () => {
     ProcessCollections().then(() => {
-        console.log("done")
+        console.log("Index latest transactions done")
     })
 }
 
