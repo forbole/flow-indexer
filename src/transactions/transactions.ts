@@ -10,7 +10,7 @@ const getStatus = (status:number):string => {
     }
 }
 
-export const GetTransaction = async (txId:string, collectionId:string):Promise<void> => {
+export const GetTransaction = async (txId:string):Promise<void> => {
     try{
         const req = new GetTransactionRequest()
         req.setId(txId)
@@ -47,8 +47,6 @@ export const GetTransactionResult = async (txId:string):Promise<TransactionResul
         req.setId(txId)
         console.log("Get result of transaction ID: %o", txId)
         const res:TransactionResultResponse = await unary(AccessAPI.GetTransactionResult, req)
-        console.log(res)
-        console.log()
 
         const txRes = new TransactionResult()
         txRes.status = getStatus(res.status)

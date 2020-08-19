@@ -5,6 +5,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { ChainState } from "./entity/ChainState"
 import { UpdateBlocks } from "./blocks/blocks"
+import { ProcessCollections } from "./collections/collections"
 
 const getLatestHeight = async ():Promise<number> => {
     const req = new GetLatestBlockHeaderRequest()
@@ -56,16 +57,23 @@ const startIndex = () => {
     })
 }
 
+const indexTransactions = () => {
+    ProcessCollections().then(() => {
+        console.log("done")
+    })
+}
+
 const main = async() => {
     await createConnection()
     console.log("Start...")
+
     timer = global.setInterval(startIndex, 3000)
 
-    // await GetTransaction("0z4+uZXSj4Z0EM+u/+RkYooSfZ5F9BocxRdCkkmPU9w=", "is/nqrKpszg9x1d1zoOqCdfdQ/9RjWIepoLIRVcssiE=")
-    // await GetTransactionResult("0z4+uZXSj4Z0EM+u/+RkYooSfZ5F9BocxRdCkkmPU9w=")
+    colTimer = global.setInterval(indexTransactions, 10000)
+
     // await GetAccount("GOtO5rPAJtI=")
 }
 
-let timer:NodeJS.Timer
+let timer, colTimer:NodeJS.Timer
 
 main()

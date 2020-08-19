@@ -1,6 +1,7 @@
 import { AccessAPI, GetCollectionByIDRequest, CollectionResponse } from "@onflow/protobuf"
 import { unary } from "../utils/unary"
 import { Collection } from "../entity/Collection"
+import { GetTransaction } from "../transactions/transactions"
 
 export const GetCollection = async (collectionId:string, height):Promise<void> => {
     try{
@@ -23,4 +24,20 @@ export const GetCollection = async (collectionId:string, height):Promise<void> =
     catch(e){
         console.log(e)
     }
+}
+
+export const ProcessCollections = async ():Promise<void> => {
+    const collections = await Collection.find({processed: false})
+    collections.forEach(async (col) => {
+        col.transactionIds.forEach( async (txId) =>{
+            try{
+                await GetTransaction(txId)
+            }
+            catch(e){
+                console.log(e)
+            }
+        })
+        col.processed = true
+        await Collection.save(col)
+    })
 }
