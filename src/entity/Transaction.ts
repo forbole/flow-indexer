@@ -1,6 +1,7 @@
 import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
 import { TransactionProposalKey } from "./TransactionProposalKey"
 import { TransactionSignature } from "./TransactionSignature"
+import { TransactionResult } from "./TransactionResult";
 
 @Entity()
 export class Transaction extends BaseEntity {
@@ -33,4 +34,7 @@ export class Transaction extends BaseEntity {
 
     @Column('jsonb')
     envelopeSignatures: TransactionSignature[]
+
+    @Column('jsonb')
+    transactionResult: TransactionResult
 }
