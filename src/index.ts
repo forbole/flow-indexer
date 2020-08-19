@@ -6,6 +6,9 @@ import { createConnection } from "typeorm";
 import { ChainState } from "./entity/ChainState"
 import { UpdateBlocks } from "./blocks/blocks"
 
+import { GetTransaction, GetTransactionResult } from "./transactions/transactions"
+import { GetAccount } from "./accounts/accounts"
+
 const getLatestHeight = async ():Promise<number> => {
     const req = new GetLatestBlockHeaderRequest()
     const res:BlockHeaderResponse = await unary(AccessAPI.GetLatestBlockHeader, req)
@@ -60,9 +63,12 @@ const main = async() => {
     await createConnection()
     console.log("Start...")
     timer = global.setInterval(startIndex, 3000)
+
+    // await GetTransaction("OjS376M0jEd+sSu/prZy6n2+eO4jNZWdE2jZjgU5DyU=", "ZZZScxbn2OMZGpST8gqw6MsW0vfs04fPKVrV7UaKvbU=")
+    // await GetTransactionResult("OjS376M0jEd+sSu/prZy6n2+eO4jNZWdE2jZjgU5DyU=")
+    // await GetAccount("GOtO5rPAJtI=")
 }
 
 let timer:NodeJS.Timer
 
 main()
-
