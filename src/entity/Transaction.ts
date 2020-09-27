@@ -1,7 +1,8 @@
-import { Entity, Unique, Index, PrimaryColumn, Column, BaseEntity } from "typeorm";
+import { Entity, Unique, Index, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn } from "typeorm";
 import { TransactionProposalKey } from "./TransactionProposalKey"
 import { TransactionSignature } from "./TransactionSignature"
 import { TransactionResult } from "./TransactionResult";
+import { Block } from "./Block"
 
 @Entity()
 @Unique(["id"])
@@ -37,6 +38,13 @@ export class Transaction extends BaseEntity {
     @Column('jsonb')
     envelopeSignatures: TransactionSignature[]
 
-    @Column('jsonb')
+    @Column({ nullable: true, type: "jsonb" })
     transactionResult: TransactionResult
+
+    @ManyToOne(type => Block)
+    @JoinColumn({
+        name: "referenceBlockId",
+        referencedColumnName: "id"
+    })
+    expireBlock?: Block
 }

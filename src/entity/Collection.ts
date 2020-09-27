@@ -1,5 +1,5 @@
-import {Entity, Unique, Index, PrimaryColumn, Column, BaseEntity} from "typeorm";
-
+import {Entity, Unique, Index, PrimaryColumn, Column, BaseEntity, ManyToOne, JoinColumn} from "typeorm";
+import {Block} from "./Block";
 @Entity()
 @Unique(["id"])
 export class Collection extends BaseEntity{
@@ -16,4 +16,11 @@ export class Collection extends BaseEntity{
     @Column()
     @Index("collection_height_idx")
     height: number
+
+    @ManyToOne(type => Block)
+    @JoinColumn({
+        name: "height",
+        referencedColumnName: "height"
+    })
+    block?: Block
 }
