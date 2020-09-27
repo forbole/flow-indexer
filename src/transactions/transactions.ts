@@ -37,6 +37,7 @@ export const GetTransaction = async (txId:string):Promise<void> => {
         
     }
     catch(e){
+        console.log("Getting transaction %o", txId)
         console.log(e)
     }
 }
@@ -57,6 +58,7 @@ export const GetTransactionResult = async (txId:string):Promise<TransactionResul
         return txRes
     }
     catch(e){
+        console.log("Getting transaction result of %o", txId)
         console.log(e)
     }
 }
