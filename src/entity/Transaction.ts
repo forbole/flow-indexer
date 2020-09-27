@@ -1,9 +1,10 @@
-import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
+import { Entity, Unique, Index, PrimaryColumn, Column, BaseEntity } from "typeorm";
 import { TransactionProposalKey } from "./TransactionProposalKey"
 import { TransactionSignature } from "./TransactionSignature"
 import { TransactionResult } from "./TransactionResult";
 
 @Entity()
+@Unique(["id"])
 export class Transaction extends BaseEntity {
     @PrimaryColumn()
     id: string
@@ -15,6 +16,7 @@ export class Transaction extends BaseEntity {
     arguments: string[]
 
     @Column()
+    @Index("transaction_block_id_idx")
     referenceBlockId: string
 
     @Column('bigint')

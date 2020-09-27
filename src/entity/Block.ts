@@ -1,8 +1,11 @@
-import {Entity, PrimaryColumn, Column, BaseEntity} from "typeorm";
+import {Entity, Unique, Index, PrimaryColumn, Column, BaseEntity} from "typeorm";
 import { BlockSeal } from './BlockSeal'
 import { CollectionGuarantee } from './CollectionGuarantee'
 
 @Entity()
+@Unique(["id"])
+@Unique(["parentId"])
+@Unique(["height"])
 export class Block extends BaseEntity{
 
     @PrimaryColumn()
@@ -12,6 +15,7 @@ export class Block extends BaseEntity{
     parentId: string
 
     @PrimaryColumn()
+    @Index("block_height_idx")
     height: number
 
     @Column("json")

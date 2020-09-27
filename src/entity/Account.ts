@@ -1,9 +1,11 @@
-import { Entity, PrimaryColumn, Column, BaseEntity } from "typeorm";
+import { Entity, Unique, Index, PrimaryColumn, Column, BaseEntity } from "typeorm";
 import { AccountKey } from './AccountKey'
 
 @Entity()
+@Unique(["address"])
 export class Account {
     @PrimaryColumn()
+    @Index("address_idx")
     address: string
 
     @Column('bigint')

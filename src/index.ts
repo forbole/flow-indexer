@@ -64,6 +64,7 @@ const indexTransactions = () => {
 }
 
 const main = async() => {
+    console.log("Connecting to database...")
     await createConnection()
     console.log("Start...")
 

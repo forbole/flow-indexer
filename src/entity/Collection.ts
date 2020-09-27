@@ -1,6 +1,7 @@
-import {Entity, PrimaryColumn, Column, BaseEntity} from "typeorm";
+import {Entity, Unique, Index, PrimaryColumn, Column, BaseEntity} from "typeorm";
 
 @Entity()
+@Unique(["id"])
 export class Collection extends BaseEntity{
 
     @PrimaryColumn()
@@ -13,5 +14,6 @@ export class Collection extends BaseEntity{
     processed: boolean
     
     @Column()
+    @Index("collection_height_idx")
     height: number
 }
