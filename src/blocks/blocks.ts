@@ -25,7 +25,7 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
 
     let startHeight:number
 
-    if (!largestHeight){
+    if (!largestHeight || (largestHeight.height < genesisHeight)){
         // table is empty
         startHeight = genesisHeight
         console.log("Table is empty. Start from genesis height: %o ", genesisHeight)
