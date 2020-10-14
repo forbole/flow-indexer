@@ -3,6 +3,7 @@ import { TransactionProposalKey } from "./TransactionProposalKey"
 import { TransactionSignature } from "./TransactionSignature"
 import { TransactionResult } from "./TransactionResult";
 import { Block } from "./Block"
+import { Collection } from "./Collection"
 
 @Entity()
 @Unique(["id"])
@@ -19,6 +20,14 @@ export class Transaction extends BaseEntity {
     @Column()
     @Index("transaction_block_id_idx")
     referenceBlockId: string
+
+    @Column({ nullable: true, type: "varchar" })
+    @Index("transaction_collection_id_idx")
+    collectionId: string
+
+    @Column('bigint')
+    @Index("transaction_height_idx")
+    height: number
 
     @Column('bigint')
     gasLimit: number
@@ -47,4 +56,19 @@ export class Transaction extends BaseEntity {
         referencedColumnName: "id"
     })
     expireBlock?: Block
+
+    @ManyToOne(type => Collection)
+    @JoinColumn({
+        name: "collectionId",
+        referencedColumnName: "id"
+    })
+    collection?: Collection
+
+    @ManyToOne(type => Block)
+    @JoinColumn({
+        name: "height",
+        referencedColumnName: "height"
+    })
+    block?: Block
+    
 }

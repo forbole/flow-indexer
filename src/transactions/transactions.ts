@@ -2,6 +2,7 @@ import { AccessAPI, GetTransactionRequest, TransactionResponse, TransactionResul
 import { unary } from "../utils/unary"
 import { Transaction } from "../entity/Transaction"
 import { TransactionResult } from "../entity/TransactionResult"
+import { Collection } from "../entity/Collection"
 
 const getStatus = (status:number):string => {
     for (let s in TransactionStatus){
@@ -10,7 +11,7 @@ const getStatus = (status:number):string => {
     }
 }
 
-export const GetTransaction = async (txId:string):Promise<void> => {
+export const GetTransaction = async (txId:string, collection:Collection):Promise<void> => {
     try{
         const req = new GetTransactionRequest()
         req.setId(txId)
@@ -29,6 +30,8 @@ export const GetTransaction = async (txId:string):Promise<void> => {
         tx.authorizers = res.transaction.authorizersList
         tx.payloadSignatures = res.transaction.payloadSignaturesList
         tx.envelopeSignatures = res.transaction.envelopeSignaturesList
+        tx.collectionId = collection.id
+        tx.height = collection.height
         tx.transactionResult = await GetTransactionResult(txId)
         
         

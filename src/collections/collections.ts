@@ -31,7 +31,7 @@ export const ProcessCollections = async ():Promise<void> => {
     collections.forEach(async (col) => {
         col.transactionIds.forEach( async (txId) =>{
             try{
-                await GetTransaction(txId)
+                await GetTransaction(txId, col)
             }
             catch(e){
                 console.log(e)
