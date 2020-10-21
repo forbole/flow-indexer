@@ -6,6 +6,7 @@ import { createConnection } from "typeorm";
 import { ChainState } from "./entity/ChainState"
 import { UpdateBlocks } from "./blocks/blocks"
 import { ProcessCollections } from "./collections/collections"
+import { getNodeInfos } from "./nodes/nodes"
 
 const getLatestHeight = async ():Promise<number> => {
     const req = new GetLatestBlockHeaderRequest()
@@ -63,10 +64,13 @@ const indexTransactions = () => {
     })
 }
 
+
 const main = async() => {
     console.log("Connecting to database...")
     await createConnection()
     console.log("Start...")
+
+    getNodeInfos()
 
     timer = global.setInterval(startIndex, 3000)
 
