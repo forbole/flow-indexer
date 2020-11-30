@@ -7,6 +7,7 @@ import { ChainState } from "./entity/ChainState"
 import { UpdateBlocks } from "./blocks/blocks"
 import { ProcessCollections } from "./collections/collections"
 import { getNodeInfos } from "./nodes/nodes"
+import { startApolloServer } from "./apollo"
 
 const getLatestHeight = async ():Promise<number> => {
     const req = new GetLatestBlockHeaderRequest()
@@ -70,13 +71,17 @@ const main = async() => {
     await createConnection()
     console.log("Start...")
 
+    // get node information
     getNodeInfos()
 
+    // start getting blocks
     timer = global.setInterval(startIndex, 3000)
 
+    // get transactions
     colTimer = global.setInterval(indexTransactions, 10000)
-
-    // await GetAccount("GOtO5rPAJtI=")
+    
+    // start Apollo server
+    startApolloServer()
 }
 
 let timer, colTimer:NodeJS.Timer
