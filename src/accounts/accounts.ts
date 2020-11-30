@@ -9,9 +9,10 @@ export const GetAccount = async (address: string):Promise<void> => {
         req.setAddress(addressBuffer(Buffer.from(address, 'base64').toString('hex')))
         console.log("Get account address: %o", address)
         const res:GetAccountResponse = await unary(AccessAPI.GetAccount, req)
-        console.log(res)
+        return res.account
     }
     catch(e){
         console.log(e)
+        return null
     }
 }

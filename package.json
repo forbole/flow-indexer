@@ -17,6 +17,7 @@
       "apollo-server": "^2.19.0",
       "dotenv": "^8.2.0",
       "graphql": "^15.4.0",
+      "graphql-type-json": "^0.3.2",
       "pg": "^8.3.3",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.25"

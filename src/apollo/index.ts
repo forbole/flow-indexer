@@ -1,36 +1,29 @@
 import { ApolloServer, gql } from "apollo-server"
+import { GraphQLJSONObject } from 'graphql-type-json'
+import { GetAccount } from "../accounts/accounts"
 
 export const startApolloServer = () => {
   const typeDefs = gql`
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
-  
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-      title: String
-      author: String
-  }
-  
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-      books: [Book]
-  }
+ 
+    scalar JSONObject
+
+    type Account {
+        address: String
+        balance: Float
+        code: String
+        keysList: [JSONObject]
+    }
+    
+    type Query {
+        account(address: String!): Account
+    }
   `
-  const books = [
-      {
-        title: 'The Awakening',
-        author: 'Kate Chopin',
-      },
-      {
-        title: 'City of Glass',
-        author: 'Paul Auster',
-      },
-  ]
   
   const resolvers = {
       Query: {
-        books: () => books,
+        account: async (parent, args, context, info) => {
+          return await GetAccount(args.address)
+        },
       },
   }
   
