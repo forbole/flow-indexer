@@ -14,7 +14,9 @@
       "@improbable-eng/grpc-web-node-http-transport": "^0.13.0",
       "@onflow/protobuf": "^0.1.6",
       "@onflow/response": "^0.0.2",
+      "apollo-server": "^2.19.0",
       "dotenv": "^8.2.0",
+      "graphql": "^15.4.0",
       "pg": "^8.3.3",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.2.25"
