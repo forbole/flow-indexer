@@ -12,6 +12,7 @@ export const startApolloServer = () => {
         balance: Float
         code: String
         keysList: [JSONObject]
+        contractsMap: [JSONObject]
     }
     
     type Query {
