@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from "apollo-server"
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { GetAccount } from "../accounts/accounts"
+import { GetAccount, SDKGetAccount } from "../accounts/accounts"
 
 export const startApolloServer = () => {
   const typeDefs = gql`
@@ -17,6 +17,7 @@ export const startApolloServer = () => {
     
     type Query {
         account(address: String!): Account
+        sdkAccount(address: String): Account
     }
   `
   
@@ -25,6 +26,11 @@ export const startApolloServer = () => {
         account: async (parent, args, context, info) => {
           return await GetAccount(args.address)
         },
+        sdkAccount: async (parent, args, context, info) => {
+          let acct = await SDKGetAccount(args.address)
+          console.log(acct)
+          return acct
+        }
       },
   }
   
