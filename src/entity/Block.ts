@@ -6,6 +6,7 @@ import { CollectionGuarantee } from './CollectionGuarantee'
 @Unique(["id"])
 @Unique(["parentId"])
 @Unique(["height"])
+@Index("block_height_desc_idx", { synchronize: false })
 export class Block extends BaseEntity{
 
     @PrimaryColumn()
