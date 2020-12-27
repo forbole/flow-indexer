@@ -1,4 +1,5 @@
 import "../utils/env"
+import * as global from "../global"
 import * as fcl from "@onflow/fcl"
 
 const getStakedNodeIDs = async ():Promise<any> => {
@@ -7,7 +8,7 @@ const getStakedNodeIDs = async ():Promise<any> => {
       return new Promise(function(resolve, reject) {
         fcl.send([
             fcl.script`
-            import FlowIDTableStaking from 0x8624b52f9ddcd04a
+            import FlowIDTableStaking from ${global.contracts.StakingTable}
             pub fun main(): {String: UFix64} {
               var nodes: {String: UFix64} = {}
               for nodeID in FlowIDTableStaking.getStakedNodeIDs() {
