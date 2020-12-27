@@ -2,7 +2,7 @@ import { AccessAPI, GetAccountRequest, GetAccountResponse } from "@onflow/protob
 import { unary } from "../utils/unary"
 import { addressBuffer } from "../utils/address"
 
-export const GetAccount = async (address: string):Promise<void> => {
+export const getAccount = async (address: string):Promise<void> => {
     try{
         const req = new GetAccountRequest()
         console.log(addressBuffer(Buffer.from(address, 'base64').toString('hex')))

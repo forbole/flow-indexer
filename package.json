@@ -11,9 +11,13 @@
       "typescript": "^3.9.7"
    },
    "dependencies": {
+      "@graphql-tools/merge": "^6.2.6",
       "@improbable-eng/grpc-web-node-http-transport": "^0.13.0",
+      "@onflow/fcl": "^0.0.66",
       "@onflow/protobuf": "^0.1.6",
       "@onflow/response": "^0.0.2",
+      "@onflow/sdk": "^0.0.44",
+      "@onflow/types": "^0.0.4",
       "apollo-server": "^2.19.0",
       "dotenv": "^8.2.0",
       "graphql": "^15.4.0",
