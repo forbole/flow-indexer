@@ -8,6 +8,7 @@ build/
 tmp/
 temp/
 ormconfig.json
+ormconfig.json.localdb
 yarn-error.log
 
 # Compiled source #
