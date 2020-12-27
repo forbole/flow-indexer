@@ -9,6 +9,7 @@ tmp/
 temp/
 ormconfig.json
 ormconfig.json.localdb
+ormconfig.json.aws
 yarn-error.log
 
 # Compiled source #
