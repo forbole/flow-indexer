@@ -53,6 +53,12 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
             block.blockSeals = res.block.blockSealsList
             block.signatures = res.block.signaturesList
 
+
+            // and save it
+            // make sure Block is saved before Collections and Transactions are being processed.
+            
+            await Block.save(block);
+
             // if current height == genesis, don't calculate block time
             if (height != genesisHeight){
                 // get the current block time from chain state
@@ -87,10 +93,6 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
                     await GetCollection(collectionGuarantee.collectionId, height)
                 })
             }
-
-            // and save it
-            await Block.save(block);
-
         }
         catch(e){
             console.log("Get block at height %o error: %o", height, e)
