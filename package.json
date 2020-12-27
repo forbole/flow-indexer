@@ -11,6 +11,7 @@
       "typescript": "^3.9.7"
    },
    "dependencies": {
+      "@graphql-tools/merge": "^6.2.6",
       "@improbable-eng/grpc-web-node-http-transport": "^0.13.0",
       "@onflow/fcl": "^0.0.66",
       "@onflow/protobuf": "^0.1.6",
