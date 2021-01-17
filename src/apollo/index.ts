@@ -35,6 +35,8 @@ export const startApolloServer = () => {
         totalStakeByType(role:Int!): Float
         stakingTable: [String]
         stakingRequirements(role:Int!): Float
+        proposedTable: [String]
+        nodeUnstakingTokens(nodeID: String!): Int
     }
   `
   
@@ -81,9 +83,13 @@ export const startApolloServer = () => {
         },
         stakingRequirements: async (parent, args, context, info) => {
           return await Staking.getStakeRequirements(args.role)
-        }
-
-        
+        },
+        proposedTable: async (parent, args, context, info) => {
+          return await Staking.getProposedTable()
+        },
+        nodeUnstakingTokens: async (parent, args, context, info) => {
+          return await Staking.getNodeUnstakingTokens(args.nodeID)
+        }        
       },
   }
   
