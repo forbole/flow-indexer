@@ -26,6 +26,7 @@ export const startApolloServer = () => {
         lockedAccountAddress(address: String!): String
         lockedAccountBalance(address: String!): Float
         unlockLimit(address: String!): Float
+        delegatorID(address: String!): Int
     }
   `
   
@@ -45,6 +46,9 @@ export const startApolloServer = () => {
         },
         unlockLimit: async (parent, args, context, info) => {
           return await Account.getUnlockLimit(args.address)
+        },
+        delegatorID: async (parent, args, context, info) => {
+          return await Account.getDelegatorID(args.address)
         }
       },
   }
