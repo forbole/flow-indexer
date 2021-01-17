@@ -84,6 +84,25 @@ const main = async() => {
     startApolloServer()
 }
 
+const devMain = async () => {
+    // console.log(await getLockedAccountAddress("0xfb397444147918de"))
+    // console.log(await getAccount('H17NmQWDGAE='))
+    // // const interaction = await sdk.build([
+    // //     sdk.getAccount("1f5ecd9905831801")
+    // //  ])
+
+    //  const response = await sdk.send(await sdk.build([
+    //     sdk.getAccount("0x1f5ecd9905831801")
+    //   ]), { node: process.env.ACCESS_NODE })
+    //   console.log(response)
+    // start Apollo server
+    startApolloServer()
+}
+
 let timer, colTimer:NodeJS.Timer
 
-main()
+
+if (process.env.NODE_ENV == 'production')
+    main()
+else 
+    devMain()
