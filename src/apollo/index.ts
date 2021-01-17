@@ -1,7 +1,7 @@
 import { ApolloServer, gql } from "apollo-server"
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { getAccount, getLockedAccount } from "../accounts"
-import { getStakedNodeIDs } from '../staking'
+import * as Account from "../accounts"
+import * as Staking from '../staking'
 
 export const startApolloServer = () => {
   const typeDefs = gql`
@@ -23,19 +23,24 @@ export const startApolloServer = () => {
     type Query {
         account(address: String!): Account
         stakingNodes: StakingNode
+        lockedAccountAddress(address: String!): String
+        lockedAccountBalance(address: String!): JSONObject
     }
   `
   
   const resolvers = {
       Query: {
         account: async (parent, args, context, info) => {
-          return await getAccount(args.address)
+          return await Account.getAccount(args.address)
         },
         stakingNodes: async (parent, args, context, info) => {
-          return {nodes:await getStakedNodeIDs()}
+          return {nodes:await Staking.getStakedNodeIDs()}
         },
-        getLockedAccount: async (parent, args, context, info) => {
-          // return 
+        lockedAccountAddress: async (parent, args, context, info) => {
+          return await Account.getLockedAccountAddress(args.address)
+        },
+        lockedAccountBalance: async (parent, args, context, info) => {
+          return await Account.getLockedAccountBalance(args.address)
         }
       },
   }
