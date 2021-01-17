@@ -44,6 +44,9 @@ export const startApolloServer = () => {
         nodeTotalCommitment(nodeID: String!): Float
         nodeStakingKey(nodeID: String!): String
         nodeStakedTokens(nodeID: String!): Float
+        nodeRole(nodeID: String!): Int
+        nodeRewardedTokens(nodeID: String!): Float
+        nodeNetworkingKey(nodeID: String!): String
     }
   `
   
@@ -117,9 +120,18 @@ export const startApolloServer = () => {
         },
         nodeStakedTokens: async (parent, args, context, info) => {
           return await Staking.getNodeStakedTokens(args.nodeID)
+        },
+        nodeRole: async (parent, args, context, info) => {
+          return await Staking.getNodeRole(args.nodeID)
+        },
+        nodeRewardedTokens: async (parent, args, context, info) => {
+          return await Staking.getNodeRewardedTokens(args.nodeID)
+        },
+        nodeNetworkingKey: async (parent, args, context, info) => {
+          return await Staking.getNodeNetworkingKey(args.nodeID)
         }
 
-
+        
         
         
 
