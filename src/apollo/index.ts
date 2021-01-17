@@ -24,7 +24,8 @@ export const startApolloServer = () => {
         account(address: String!): Account
         stakingNodes: StakingNode
         lockedAccountAddress(address: String!): String
-        lockedAccountBalance(address: String!): JSONObject
+        lockedAccountBalance(address: String!): Float
+        unlockLimit(address: String!): Float
     }
   `
   
@@ -41,6 +42,9 @@ export const startApolloServer = () => {
         },
         lockedAccountBalance: async (parent, args, context, info) => {
           return await Account.getLockedAccountBalance(args.address)
+        },
+        unlockLimit: async (parent, args, context, info) => {
+          return await Account.getUnlockLimit(args.address)
         }
       },
   }
