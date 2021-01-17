@@ -184,3 +184,178 @@ export const getNodeUnstakingTokens = async (nodeID:String):Promise<any> => {
       console.log(e)
   }
 }
+
+export const getNodeUnstakingRequest = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): UFix64 {
+            let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+            return nodeInfo.tokensRequestedToUnstake
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getNodeUnstakedTokens = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): UFix64 {
+            let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+            return nodeInfo.tokensUnstaked
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getNodeTypeRatio = async (role:Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(role: UInt8): UFix64 {
+            let ratios = FlowIDTableStaking.getRewardRatios()
+        
+            return ratios[role]!
+        }`,
+        fcl.args([
+          fcl.arg(role, t.UInt8), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getNodeCommittedBalanceWithoutDelegators = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): UFix64 {
+            return FlowIDTableStaking.getNodeCommittedBalanceWithoutDelegators(nodeID)
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+
+export const getNodeTotalCommitment = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): UFix64 {
+            return FlowIDTableStaking.getNodeCommittedBalanceWithDelegators(nodeID)
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getNodeStakingKey = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): String {
+            let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+            return nodeInfo.stakingKey
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getNodeStakedTokens = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): UFix64 {
+            let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+            return nodeInfo.tokensStaked
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
