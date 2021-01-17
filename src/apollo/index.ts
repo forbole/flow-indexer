@@ -27,6 +27,10 @@ export const startApolloServer = () => {
         lockedAccountBalance(address: String!): Float
         unlockLimit(address: String!): Float
         delegatorID(address: String!): Int
+        delegatorNodeID(address: String!): String
+        delegatorNodeInfo(address: String!): JSONObject
+        stakerNodeID(address: String!): String
+        stakerNodeInfo(address: String): JSONObject
     }
   `
   
@@ -49,6 +53,18 @@ export const startApolloServer = () => {
         },
         delegatorID: async (parent, args, context, info) => {
           return await Account.getDelegatorID(args.address)
+        },
+        delegatorNodeID: async (parent, args, context, info) => {
+          return await Account.getDelegatorNodeID(args.address)
+        },
+        delegatorNodeInfo: async (parent, args, context, info) => {
+          return await Account.getDelegatorNodeInfo(args.address)
+        },
+        stakerNodeID: async (parent, args, context, info) => {
+          return await Account.getStakerNodeID(args.address)
+        },
+        stakerNodeInfo: async (parent, args, context, info) => {
+          return await Account.getStakerNodeInfo(args.address)
         }
       },
   }
