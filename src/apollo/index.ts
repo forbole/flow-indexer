@@ -54,6 +54,15 @@ export const startApolloServer = () => {
         nodeCommittedTokens(nodeID: String!): Float
         cutPercentage: Float
         currentTable: [String]
+        delegatorCommitted(nodeID: String!, delegatorID: Int!): Float
+        delegatorInfo(nodeID: String!, delegatorID: Int): JSONObject
+        delegatorInfoFromAddress(address: String!): JSONObject
+        delegatorRequest(nodeID: String!, delegatorID: Int): Float
+        delegatorRewarded(nodeID: String!, delegatorID: Int): Float
+        delegatorStaked(nodeID: String!, delegatorID: Int): Float
+        delegatorUnstaked(nodeID: String!, delegatorID: Int): Float
+        delegatorUnstaking(nodeID: String!, delegatorID: Int): Float
+        delegatorUnstakingRequest(nodeID: String!, delegatorID: Int): Float
     }
   `
   
@@ -158,11 +167,34 @@ export const startApolloServer = () => {
         currentTable: async (parent, args, context, info) => {
           return await Staking.getCurrentTable()
         },
-
+        delegatorCommitted: async (parent, args, context, info) => {
+          return await Staking.getDelegatorCommitted(args.nodeID, args.delegatorID)
+        },        
+        delegatorInfo: async (parent, args, context, info) => {
+          return await Staking.getDelegatorInfo(args.nodeID, args.delegatorID)
+        },        
+        delegatorInfoFromAddress: async (parent, args, context, info) => {
+          return await Staking.getDelegatorInfoFromAddress(args.address)
+        },        
+        delegatorRequest: async (parent, args, context, info) => {
+          return await Staking.getDelegatorRequest(args.nodeID, args.delegatorID)
+        },        
+        delegatorRewarded: async (parent, args, context, info) => {
+          return await Staking.getDelegatorRewarded(args.nodeID, args.delegatorID)
+        },        
+        delegatorStaked: async (parent, args, context, info) => {
+          return await Staking.getDelegatorStaked(args.nodeID, args.delegatorID)
+        },        
+        delegatorUnstaked: async (parent, args, context, info) => {
+          return await Staking.getDelegatorUnstaked(args.nodeID, args.delegatorID)
+        },
+        delegatorUnstaking: async (parent, args, context, info) => {
+          return await Staking.getDelegatorUnstaked(args.nodeID, args.delegatorID)
+        },        
+        delegatorUnstakingRequest: async (parent, args, context, info) => {
+          return await Staking.getDelegatorUnstaked(args.nodeID, args.delegatorID)
+        },        
         
-        
-        
-
       },
   }
   

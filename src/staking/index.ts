@@ -607,3 +607,249 @@ export const getCurrentTable = async ():Promise<any> => {
       console.log(e)
   }
 }
+
+export const getDelegatorCommitted = async (nodeID:String, delegatorID:Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensCommitted
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32), 
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorInfo = async (nodeID:String, delegatorID:Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): FlowIDTableStaking.DelegatorInfo {
+            return FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32), 
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorInfoFromAddress = async (address:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(address: Address): FlowIDTableStaking.DelegatorInfo {
+
+            let account = getAccount(address)
+        
+            let delegator = account.getCapability<&{FlowIDTableStaking.NodeDelegatorPublic}>(/public/flowStakingDelegator)!
+                .borrow() ?? panic("Could not borrow reference to delegator object")
+        
+            return FlowIDTableStaking.DelegatorInfo(nodeID: delegator.nodeID, delegatorID: delegator.id)
+        }`,
+        fcl.args([
+          fcl.arg(address, t.Address), 
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorRequest = async (nodeID:String, delegatorID: Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensRequestedToUnstake
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32)
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorRewarded = async (nodeID:String, delegatorID: Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensRewarded
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32)
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorStaked = async (nodeID:String, delegatorID: Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensStaked
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32)
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorUnstaked = async (nodeID:String, delegatorID: Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensUnstaked
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32)
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorUnstaking = async (nodeID:String, delegatorID: Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensUnstaking
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32)
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getDelegatorUnstakingRequest = async (nodeID:String, delegatorID: Number):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String, delegatorID: UInt32): UFix64 {
+            let delInfo = FlowIDTableStaking.DelegatorInfo(nodeID: nodeID, delegatorID: delegatorID)
+            return delInfo.tokensRequestedToUnstake
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+          fcl.arg(delegatorID, t.UInt32)
+        ])
+
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
