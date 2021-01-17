@@ -31,6 +31,7 @@ export const startApolloServer = () => {
         delegatorNodeInfo(address: String!): JSONObject
         stakerNodeID(address: String!): String
         stakerNodeInfo(address: String!): JSONObject
+        weeklyPayout: Float
         totalStake: Float
         totalStakeByType(role:Int!): Float
         stakingTable: [String]
@@ -97,6 +98,9 @@ export const startApolloServer = () => {
         },
         stakerNodeInfo: async (parent, args, context, info) => {
           return await Account.getStakerNodeInfo(args.address)
+        },
+        weeklyPayout: async (parent, args, context, info) => {
+          return await Staking.getWeeklyPayout()
         },
         totalStake: async (parent, args, context, info) => {
           return await Staking.getTotalStake()

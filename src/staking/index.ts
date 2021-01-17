@@ -27,6 +27,26 @@ export const getStakedNodeIDs = async ():Promise<any> => {
     }
 }
 
+export const getWeeklyPayout = async ():Promise<any> => {
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(): UFix64 {
+            return FlowIDTableStaking.getEpochTokenPayout()
+        }`
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
 export const getTotalStake = async ():Promise<any> => {
   fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
   try{
