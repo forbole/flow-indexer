@@ -30,8 +30,11 @@ export const startApolloServer = () => {
         delegatorNodeID(address: String!): String
         delegatorNodeInfo(address: String!): JSONObject
         stakerNodeID(address: String!): String
-        stakerNodeInfo(address: String): JSONObject
+        stakerNodeInfo(address: String!): JSONObject
         totalStake: Float
+        totalStakeByType(role:Int!): Float
+        stakingTable: [String]
+        stakingRequirements(role:Int!): Float
     }
   `
   
@@ -69,7 +72,18 @@ export const startApolloServer = () => {
         },
         totalStake: async (parent, args, context, info) => {
           return await Staking.getTotalStake()
+        },
+        totalStakeByType: async (parent, args, context, info) => {
+          return await Staking.getTotalStakeByType(args.role)
+        },
+        stakingTable: async (parent, args, context, info) => {
+          return await Staking.getTable()
+        },
+        stakingRequirements: async (parent, args, context, info) => {
+          return await Staking.getStakeRequirements(args.role)
         }
+
+        
       },
   }
   
