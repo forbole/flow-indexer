@@ -31,6 +31,7 @@ export const startApolloServer = () => {
         delegatorNodeInfo(address: String!): JSONObject
         stakerNodeID(address: String!): String
         stakerNodeInfo(address: String): JSONObject
+        totalStake: Float
     }
   `
   
@@ -65,6 +66,9 @@ export const startApolloServer = () => {
         },
         stakerNodeInfo: async (parent, args, context, info) => {
           return await Account.getStakerNodeInfo(args.address)
+        },
+        totalStake: async (parent, args, context, info) => {
+          return await Staking.getTotalStake()
         }
       },
   }
