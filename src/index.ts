@@ -4,9 +4,9 @@ import { AccessAPI, GetLatestBlockHeaderRequest, BlockHeaderResponse } from "@on
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { ChainState } from "./entity/ChainState"
-import { UpdateBlocks } from "./blocks/blocks"
-import { ProcessCollections } from "./collections/collections"
-import { getNodeInfos } from "./nodes/nodes"
+import { UpdateBlocks } from "./blocks"
+import { ProcessCollections } from "./collections"
+import { getNodeInfos } from "./nodes"
 import { startApolloServer } from "./apollo"
 
 const getLatestHeight = async ():Promise<number> => {

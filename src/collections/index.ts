@@ -1,7 +1,7 @@
 import { AccessAPI, GetCollectionByIDRequest, CollectionResponse } from "@onflow/protobuf"
 import { unary } from "../utils/unary"
 import { Collection } from "../entity/Collection"
-import { GetTransaction } from "../transactions/transactions"
+import { GetTransaction } from "../transactions"
 
 export const GetCollection = async (collectionId:string, height):Promise<void> => {
     try{

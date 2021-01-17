@@ -1,6 +1,6 @@
 import { ApolloServer, gql } from "apollo-server"
 import { GraphQLJSONObject } from 'graphql-type-json'
-import { getAccount } from "../accounts/accounts"
+import { getAccount, getLockedAccount } from "../accounts"
 import { getStakedNodeIDs } from '../staking'
 
 export const startApolloServer = () => {
@@ -33,6 +33,9 @@ export const startApolloServer = () => {
         },
         stakingNodes: async (parent, args, context, info) => {
           return {nodes:await getStakedNodeIDs()}
+        },
+        getLockedAccount: async (parent, args, context, info) => {
+          // return 
         }
       },
   }

@@ -4,7 +4,7 @@ import { unary } from "../utils/unary"
 import { blockTime } from "../utils/timestamp"
 import { Block } from "../entity/Block";
 import { ChainState } from "../entity/ChainState"
-import { GetCollection } from "../collections/collections"
+import { GetCollection } from "../collections"
 
 
 export const UpdateBlocks = async (targetHeight:number, chainId: string, genesisHeight: number):Promise<number> => {
