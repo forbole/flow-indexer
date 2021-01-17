@@ -47,6 +47,12 @@ export const startApolloServer = () => {
         nodeRole(nodeID: String!): Int
         nodeRewardedTokens(nodeID: String!): Float
         nodeNetworkingKey(nodeID: String!): String
+        nodeNetworkingAddress(nodeID: String!): String
+        nodeInitialWeight(nodeID: String!): Int
+        nodeInfoFromAddress(address: String!): JSONObject
+        nodeInfo(nodeID: String!): JSONObject
+        nodeCommittedTokens(nodeID: String!): Float
+        cutPercentage: Float
     }
   `
   
@@ -129,12 +135,27 @@ export const startApolloServer = () => {
         },
         nodeNetworkingKey: async (parent, args, context, info) => {
           return await Staking.getNodeNetworkingKey(args.nodeID)
-        }
+        },
+        nodeNetworkingAddress: async (parent, args, context, info) => {
+          return await Staking.getNodeNetworkingAddress(args.nodeID)
+        },
+        nodeInitialWeight: async (parent, args, context, info) => {
+          return await Staking.getNodeInitialWeight(args.nodeID)
+        },
+        nodeInfoFromAddress: async (parent, args, context, info) => {
+          return await Staking.getNodeInfoFromAddress(args.address)
+        },
+        nodeInfo: async (parent, args, context, info) => {
+          return await Staking.getNodeInfo(args.nodeID)
+        },
+        nodeCommittedTokens: async (parent, args, context, info) => {
+          return await Staking.getNodeCommittedTokens(args.nodeID)
+        },
+        cutPercentage: async (parent, args, context, info) => {
+          return await Staking.getCutPercentage()
+        },
 
         
-        
-        
-
         
         
 
