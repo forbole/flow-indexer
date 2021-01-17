@@ -566,7 +566,6 @@ export const getNodeCommittedTokens = async (nodeID:String):Promise<any> => {
   }
 }
 
-
 export const getCutPercentage = async ():Promise<any> => {
 
   fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
@@ -577,6 +576,27 @@ export const getCutPercentage = async ():Promise<any> => {
           import FlowIDTableStaking from ${global.contracts.StakingTable}
           pub fun main(): UFix64 {
             return FlowIDTableStaking.getRewardCutPercentage()
+        }`,
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getCurrentTable = async ():Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(): [String] {
+            return FlowIDTableStaking.getStakedNodeIDs()
         }`,
         ])
           .then(response => fcl.decode(response), e => console.log(e))

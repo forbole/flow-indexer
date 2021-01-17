@@ -53,6 +53,7 @@ export const startApolloServer = () => {
         nodeInfo(nodeID: String!): JSONObject
         nodeCommittedTokens(nodeID: String!): Float
         cutPercentage: Float
+        currentTable: [String]
     }
   `
   
@@ -153,6 +154,9 @@ export const startApolloServer = () => {
         },
         cutPercentage: async (parent, args, context, info) => {
           return await Staking.getCutPercentage()
+        },
+        currentTable: async (parent, args, context, info) => {
+          return await Staking.getCurrentTable()
         },
 
         
