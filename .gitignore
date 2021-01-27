@@ -10,6 +10,7 @@ temp/
 ormconfig.json
 ormconfig.json.localdb
 ormconfig.json.aws
+node-infos.pub.json
 yarn-error.log
 
 # Compiled source #

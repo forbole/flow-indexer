@@ -4,7 +4,7 @@ import { unary } from "../utils/unary"
 import { blockTime } from "../utils/timestamp"
 import { Block } from "../entity/Block";
 import { ChainState } from "../entity/ChainState"
-import { GetCollection } from "../collections/collections"
+import { GetCollection } from "../collections"
 
 
 export const UpdateBlocks = async (targetHeight:number, chainId: string, genesisHeight: number):Promise<number> => {
@@ -56,8 +56,6 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
 
             // and save it
             // make sure Block is saved before Collections and Transactions are being processed.
-            
-            await Block.save(block);
 
             // if current height == genesis, don't calculate block time
             if (height != genesisHeight){
@@ -67,6 +65,8 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
                     const pBlock:Block = await Block.findOne({height:height-1})
                     // block time = current timestamp - previous timestamp
                     block.blockTime = blockTime(block.timestamp, pBlock.timestamp)
+                    
+                    await Block.save(block);
 
                     // average block time = (block time + (current height - 1 - genesis height) * average block time) / (current height - genesis height)
 
@@ -85,6 +85,9 @@ export const UpdateBlocks = async (targetHeight:number, chainId: string, genesis
                     console.log("Get previous block at height %o error: %", height-1, e)
                     return height
                 }
+            }
+            else{
+                await Block.save(block);
             }
 
             if (block.collectionGuarantees.length > 0){
