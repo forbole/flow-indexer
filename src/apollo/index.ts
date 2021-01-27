@@ -2,6 +2,7 @@ import { ApolloServer, gql } from "apollo-server"
 import { GraphQLJSONObject } from 'graphql-type-json'
 import * as Account from "../accounts"
 import * as Staking from '../staking'
+import * as FlowToken from '../token'
 
 export const startApolloServer = () => {
   const typeDefs = gql`
@@ -64,6 +65,8 @@ export const startApolloServer = () => {
         delegatorUnstaked(nodeID: String!, delegatorID: Int): Float
         delegatorUnstaking(nodeID: String!, delegatorID: Int): Float
         delegatorUnstakingRequest(nodeID: String!, delegatorID: Int): Float
+        getSupply(): Float
+        getBalance(address: String!): Float
     }
   `
   
@@ -198,7 +201,12 @@ export const startApolloServer = () => {
         delegatorUnstakingRequest: async (parent, args, context, info) => {
           return await Staking.getDelegatorUnstaked(args.nodeID, args.delegatorID)
         },        
-        
+        getSupply: async (parent, args, context, info) => {
+          return await FlowToken.getSupply()
+        },
+        getBalance: async (parent, args, context, info) => {
+          return await FlowToken.getBalance(args.address)
+        },
       },
   }
   
