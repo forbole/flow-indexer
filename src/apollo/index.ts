@@ -65,7 +65,7 @@ export const startApolloServer = () => {
         delegatorUnstaked(nodeID: String!, delegatorID: Int): Float
         delegatorUnstaking(nodeID: String!, delegatorID: Int): Float
         delegatorUnstakingRequest(nodeID: String!, delegatorID: Int): Float
-        getSupply(): Float
+        getSupply: Float
         getBalance(address: String!): Float
     }
   `
