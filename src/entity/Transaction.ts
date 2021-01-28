@@ -8,6 +8,7 @@ import { Collection } from "./Collection"
 @Entity()
 @Unique(["id"])
 @Index("transaction_height_desc_idx", { synchronize: false })
+@Index("transaction_proposal_key_idx", { synchronize: false })
 export class Transaction extends BaseEntity {
     @PrimaryColumn()
     id: string
