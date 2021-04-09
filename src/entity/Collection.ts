@@ -7,7 +7,7 @@ export class Collection extends BaseEntity{
     @PrimaryColumn()
     id: string;
 
-    @Column("json")
+    @Column({nullable: true, type:"json"})
     transactionIds: string[];
 
     @Column({type: "boolean", default:false})

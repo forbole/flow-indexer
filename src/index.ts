@@ -5,7 +5,7 @@ import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { ChainState } from "./entity/ChainState"
 import { UpdateBlocks } from "./blocks"
-import { ProcessCollections } from "./collections"
+import { ProcessCollections, ProcessEmptyCollections } from "./collections"
 import { getNodeInfos } from "./nodes"
 import { startApolloServer } from "./apollo"
 
@@ -60,6 +60,10 @@ const startIndex = () => {
 }
 
 const indexTransactions = () => {
+    ProcessEmptyCollections().then(() => {
+        console.log("=== Process empty collections ===")
+    })
+
     ProcessCollections().then(() => {
         console.log("Index latest transactions done")
     })

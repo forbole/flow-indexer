@@ -23,14 +23,36 @@ export const GetCollection = async (collectionId:string, height):Promise<void> =
     }
     catch(e){
         console.log(e)
-        console.log("Error getting collection: %0", collectionId)
+        console.log("Error getting collection: %o", collectionId)
+        const collection = new Collection()
+        collection.id = collectionId
+        collection.transactionIds = null
+        collection.processed = false
+        collection.height = height
+        await Collection.save(collection)
     }
 }
+
+export const ProcessEmptyCollections = async():Promise<void> => {
+    const collections = await Collection.find({transactionIds: null})
+    // console.log(collections)
+    collections.forEach(async collection => {
+        try{
+            await GetCollection(collection.id, collection.height)
+        }
+        catch(e){
+            console.log(e)
+            console.log("Error getting collections: %o", collection.id)
+            // collection.processed = false
+        }
+    })
+}
+
 
 export const ProcessCollections = async ():Promise<void> => {
     const collections = await Collection.find({processed: false})
     collections.forEach(async (col) => {
-        col.transactionIds.forEach( async (txId) =>{
+        col.transactionIds?.forEach( async (txId) =>{
             try{
                 await GetTransaction(txId, col)
             }
