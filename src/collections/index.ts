@@ -23,6 +23,7 @@ export const GetCollection = async (collectionId:string, height):Promise<void> =
     }
     catch(e){
         console.log(e)
+        console.log("Error getting collection: %0", collectionId)
     }
 }
 
