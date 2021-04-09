@@ -102,7 +102,7 @@ const devMain = async () => {
 let timer, colTimer:NodeJS.Timer
 
 
-if (process.env.NODE_ENV == 'production')
+//if (process.env.NODE_ENV == 'production')
     main()
-else 
-    devMain()
+//else 
+//    devMain()
