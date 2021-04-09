@@ -32,7 +32,13 @@ export const GetTransaction = async (txId:string, collection:Collection):Promise
         tx.envelopeSignatures = res.transaction.envelopeSignaturesList
         tx.collectionId = collection.id
         tx.height = collection.height
-        tx.transactionResult = await GetTransactionResult(txId)
+        try{
+            tx.transactionResult = await GetTransactionResult(txId)
+        }
+        catch (e){
+            console.log(e)
+            tx.transactionResult = null
+        }
         
         
         await Transaction.save(tx)
