@@ -315,7 +315,33 @@ export const getNodeTotalCommitment = async (nodeID:String):Promise<any> => {
           fcl.script`
           import FlowIDTableStaking from ${global.contracts.StakingTable}
           pub fun main(nodeID: String): UFix64 {
-            return FlowIDTableStaking.getNodeCommittedBalanceWithDelegators(nodeID)
+            let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+            return nodeInfo.totalCommittedWithDelegators()
+        }`,
+        fcl.args([
+          fcl.arg(nodeID, t.String), 
+        ])
+        ])
+          .then(response => fcl.decode(response), e => console.log(e))
+          .then(nodes => {resolve(nodes)}, e => console.log(e))
+      })
+  }
+  catch (e){
+      console.log(e)
+  }
+}
+
+export const getNodeTotalCommitmentWithoutDelegators = async (nodeID:String):Promise<any> => {
+
+  fcl.config().put("accessNode.api", process.env.ACCESS_NODE)
+  try{
+    return new Promise(function(resolve, reject) {
+      fcl.send([
+          fcl.script`
+          import FlowIDTableStaking from ${global.contracts.StakingTable}
+          pub fun main(nodeID: String): UFix64 {
+            let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+            return nodeInfo.totalCommittedWithoutDelegators()
         }`,
         fcl.args([
           fcl.arg(nodeID, t.String), 
