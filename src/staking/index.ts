@@ -13,7 +13,8 @@ export const getStakedNodeIDs = async ():Promise<any> => {
             pub fun main(): {String: UFix64} {
               var nodes: {String: UFix64} = {}
               for nodeID in FlowIDTableStaking.getStakedNodeIDs() {
-                nodes[nodeID] = FlowIDTableStaking.getNodeCommittedBalanceWithDelegators(nodeID)
+                let nodeInfo = FlowIDTableStaking.NodeInfo(nodeID: nodeID)
+                nodes[nodeID] = nodeInfo.totalCommittedWithDelegators()
               }
               return nodes
             }`
