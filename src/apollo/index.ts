@@ -44,6 +44,7 @@ export const startApolloServer = () => {
         nodeTypeRatio(role: Int!): Float
         nodeCommittedBalanceWithoutDelegators(nodeID: String!): Float
         nodeTotalCommitment(nodeID: String!): Float
+        nodeTotalCommitmentWithoutDelegators(nodeID: String!): Float
         nodeStakingKey(nodeID: String!): String
         nodeStakedTokens(nodeID: String!): Float
         nodeRole(nodeID: String!): Int
@@ -137,6 +138,9 @@ export const startApolloServer = () => {
         },
         nodeTotalCommitment: async (parent, args, context, info) => {
           return await Staking.getNodeTotalCommitment(args.nodeID)
+        },
+        nodeTotalCommitmentWithoutDelegators: async (parent, args, context, info) => {
+          return await Staking.getNodeTotalCommitmentWithoutDelegators(args.nodeID)
         },
         nodeStakingKey: async (parent, args, context, info) => {
           return await Staking.getNodeStakingKey(args.nodeID)
