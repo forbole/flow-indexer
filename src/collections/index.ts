@@ -34,7 +34,10 @@ export const GetCollection = async (collectionId:string, height):Promise<void> =
 }
 
 export const ProcessEmptyCollections = async():Promise<void> => {
-    const collections = await Collection.find({transactionIds: null})
+    const collections = await Collection.find({
+        where: {transactionIds: null},
+        take: 100
+    })
     // console.log(collections)
     collections.forEach(async collection => {
         try{
@@ -50,7 +53,10 @@ export const ProcessEmptyCollections = async():Promise<void> => {
 
 
 export const ProcessCollections = async ():Promise<void> => {
-    const collections = await Collection.find({processed: false})
+    const collections = await Collection.find({
+        where: {processed: false},
+        take: 500
+    })
     collections.forEach(async (col) => {
         col.transactionIds?.forEach( async (txId) =>{
             try{
