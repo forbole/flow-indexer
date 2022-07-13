@@ -2,7 +2,7 @@ export class NodeInfo {
     Role: string
     Address: string
     NodeID: string
-    Stake: number
+    Weight: number
     NetworkPubKey: string
     StakingPubKey: string
 }
