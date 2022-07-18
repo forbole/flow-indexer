@@ -14,7 +14,7 @@ export const getNodeInfos = () => {
                 nodeInfo.nodeId = node.NodeID
                 nodeInfo.address = node.Address
                 nodeInfo.role = node.Role
-                nodeInfo.stake = node.Stake
+                nodeInfo.stake = node.Weight
                 nodeInfo.stakingPubKey = node.StakingPubKey
                 nodeInfo.networkPubKey = node.NetworkPubKey
 

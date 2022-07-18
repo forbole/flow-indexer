@@ -55,7 +55,7 @@ export const ProcessEmptyCollections = async():Promise<void> => {
 export const ProcessCollections = async ():Promise<void> => {
     const collections = await Collection.find({
         where: {processed: false},
-        take: 500
+        take: 100
     })
     collections.forEach(async (col) => {
         col.transactionIds?.forEach( async (txId) =>{

@@ -27,9 +27,9 @@ export class Transaction extends BaseEntity {
     @Index("transaction_collection_id_idx")
     collectionId: string
 
-    @Column('bigint')
-    @Index("transaction_height_idx")
-    height: number
+    // @Column('bigint')
+    // @Index("transaction_height_idx")
+    // height: number
 
     @Column('bigint')
     gasLimit: number
