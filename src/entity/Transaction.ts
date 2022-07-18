@@ -29,7 +29,7 @@ export class Transaction extends BaseEntity {
 
     // @Column('bigint')
     // @Index("transaction_height_idx")
-    // height: number
+    height: number
 
     @Column('bigint')
     gasLimit: number
